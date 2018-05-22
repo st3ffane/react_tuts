@@ -11,15 +11,8 @@ module.exports = (state, action) => {
                 error: false,
                 known: false,
                 known_passwrd: false,
-                // keep form datas in memeory
-                firstname: action.user.firstname,
-                lastname: action.user.lastname,
-                email: action.user.email,
-                login: action.user.login,
-                passwrd: action.user.passwrd,
-                repasswrd: action.user.repasswrd,
-
-
+                
+                
             });
         }
         case REGISTER.REGISTER_CHECK_MAIL_OK: {
@@ -28,6 +21,11 @@ module.exports = (state, action) => {
                 sending: false,
                 error: false,
                 known: false,
+
+                // keep form datas in memeory
+                firstname: action.user.firstname,
+                lastname: action.user.lastname,
+                email: action.user.email,
                 
             });
         }
@@ -38,6 +36,7 @@ module.exports = (state, action) => {
                  error: false
                 });
         }
+        case REGISTER.REGISTER_ERROR:
         case REGISTER.REGISTER_CHECK_MAIL_ERROR: {
             return Object.assign({},state,{
                 sending: false,
@@ -67,19 +66,23 @@ module.exports = (state, action) => {
                 sending: false,
                 error: false,
                 known: false,
-                known_passwrd: false
+                known_passwrd: false,
+                login: action.user.login,
+                passwrd: action.user.passwrd,
+                repasswrd: action.user.repasswrd,
             });
         }
-        default:{
-            return {
+        case REGISTER.REGISTER_CREATE_SITE_OK: {
+            return Object.assign({},state,{
                 sending: false,
                 error: false,
                 known: false,
-
-                firstname: '',
-                lastname: '',
-                email: '',
-            }
+                known_passwrd: false,
+                siteName: action.user.siteName,
+            });
+        }
+        default:{
+            return state || {};
         }
     }
 };

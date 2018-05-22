@@ -35,9 +35,9 @@ class RegisterComponent extends React.Component {
 
     componentDidMount(){
         let tmp = {
-            firstname: this.props.registerState.firstname,
-            lastname: this.props.registerState.lastname,
-            email: this.props.registerState.email
+            firstname: this.props.registerState.firstname || '',
+            lastname: this.props.registerState.lastname || '',
+            email: this.props.registerState.email || ''
         }
         this.setState(Object.assign({}, this.state, tmp))
     }

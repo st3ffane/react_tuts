@@ -100,3 +100,16 @@ export function checkUserAccountInfos(user){
         }, 2000);
     });
 }
+export function createUserSite(name){
+    return new Promise( (resolve, reject)=>{
+        setTimeout( ()=>{
+            if(name == 'helloworld'){
+                reject({
+                    status: STATUS.EPIC_FAIL
+                })
+            } else {
+                resolve({status: STATUS.OK})
+            }
+        }, 2000);
+    });
+}

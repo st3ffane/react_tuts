@@ -98,7 +98,7 @@ class RegisterComponent extends React.Component {
         return res;
     }
     validateSerial(serial){
-        console.log(serial)
+        
         let tmp = {
             serial: serial,
             serial_error : {}
@@ -187,7 +187,12 @@ class RegisterComponent extends React.Component {
     }
 }
 
-
-export default connect()(AnimatedWrapper(RegisterComponent,{
+function mapStateToProps(state){
+    return {
+        registerState: state.registerState
+    }
+}
+export default connect(mapStateToProps)(AnimatedWrapper(RegisterComponent,{
     'default': "page", // toujours appliquer ces classes
+    'enter': ' trans_reg_account_enter'
 }));

@@ -5,8 +5,12 @@ import { Link, Route, Switch } from 'react-router-dom';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import CircularProgress from 'material-ui/CircularProgress';
 import AnimatedWrapper from '../../../animated.wrapper';
 
+
+
+import * as REGISTER from '../../../actions/register';
 /**
  * Main container for login page:
  * can login
@@ -25,6 +29,14 @@ class RegisterComponent extends React.Component {
     shouldComponentUpdate(np, ns){
         return true;
     }
+
+    componentDidMount(){
+        let tmp = {
+            siteName: this.props.registerState.siteName  || '',
+        }
+        this.setState(Object.assign({}, this.state, tmp))
+    }
+
 
     _setValue(field, evt){
         // todo
@@ -58,14 +70,22 @@ class RegisterComponent extends React.Component {
         evt.preventDefault();
         evt.stopPropagation();
         if(this.validateName(this.state.siteName))
-            this.props.history.push('/register/device')
+            this.props.dispatch(REGISTER.createSite(this.state, this.props.history));//this.props.history.push('/register/device')
         return false;
     }
     render(){
         
         return (
         <div id="form">
-            <div className="animated ra_switch" id="switch"></div>
+            <div className={"animated ra_switch" + (this.props.registerState.error || this.props.registerState.known  ? ' animation shake' : '')} id="switch">
+            {this.props.registerState.error ?
+                <div className="alert animation fadeInDown">
+                <i className="material-icons">
+                error
+                </i>{this.props.registerState.error_message || 'Error'}
+                </div> :
+                null}
+            </div>
           <div className="left-col resume">
             <h2>2. Next register infos</h2>
             
@@ -90,8 +110,13 @@ class RegisterComponent extends React.Component {
                     errorText={this.state.siteName_error.message}
                     />
               
-              <RaisedButton type="submit" id="lsubmit" label="Next"
-                className="primary" />
+              {this.props.registerState.sending ?
+                    <CircularProgress className="centered-progress" size={80} thickness={5} />
+                    : <RaisedButton type="submit" id="lsubmit" label="Next"
+                        className="primary" />
+                    
+              }
+
               
             </form>
           </div>
@@ -100,7 +125,12 @@ class RegisterComponent extends React.Component {
     }
 }
 
-
-export default connect()(AnimatedWrapper(RegisterComponent,{
+function mapStateToProps(state){
+    return {
+        registerState: state.registerState
+    }
+}
+export default connect(mapStateToProps)(AnimatedWrapper(RegisterComponent,{
     'default': "page", // toujours appliquer ces classes
+    'enter': ' trans_reg_account_enter'
 }));
