@@ -1,0 +1,20 @@
+@import '../template.scss';
+
+.ra_switch{
+    
+  
+    position: absolute;
+    width: 48%;
+    height: 107%;
+    background-color: $white;
+    left: 51%;
+    top: -3%;
+    z-index: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+.trans_reg_account_enter {
+    .animated{
+        animation-duration: 0.5s;
+        animation-name: magicin;
+    }
+}

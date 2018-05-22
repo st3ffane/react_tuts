@@ -1,0 +1,66 @@
+@keyframes slidein {
+    from {
+      left: 51%;
+    }
+   
+    to {
+      left: 1%;
+    }
+  }
+  @keyframes slidemiddle {
+    from {
+      left: 1%;
+    }
+   
+    to {
+      left: 26%;
+    }
+  }
+  @keyframes slidemiddleout {
+    from {
+      left: 26%;
+    }
+   
+    to {
+      left: 1%;
+    }
+  }
+
+  @keyframes slideout {
+    from {
+      left: 1%;
+    }
+  
+    to {
+      left: 51%;
+    }
+  }
+
+  @keyframes appearin {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes rotatein {
+    from {
+      transform: rotate3d(0,0,1,0deg);
+    }
+   
+    to {
+      transform: rotate3d(0,0,1,180deg);
+    }
+  }
+  @keyframes rotateout {
+    from {
+      transform: rotate3d(0,0,1,180deg);
+    }
+   
+    to {
+      transform: rotate3d(0,0,1,0deg);
+    }
+  }

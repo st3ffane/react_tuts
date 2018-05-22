@@ -1,0 +1,19 @@
+.rn_switch{
+    animation-duration: 0.5s;
+    animation-name: rotatein;
+    position: absolute;
+    width: 48%;
+    height: 107%;
+    background-color: $white;
+    left: 1%;
+    top: -3%;
+    z-index: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+form.renew{
+  h2{
+    margin-bottom: 0px;
+    margin-top: 1rem;
+  }
+  
+}

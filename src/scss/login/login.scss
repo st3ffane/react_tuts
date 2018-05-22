@@ -1,0 +1,49 @@
+@import '../template.scss';
+
+form.login{
+    /*margin-top: 102px;*/
+}
+.resume, .forms{
+    opacity: 0;
+    animation-duration: 0.3s;
+    animation-name: appearin;
+    animation-delay: 0.2s;
+    animation-fill-mode: forwards;
+}
+
+.l_switch{
+    
+    position: absolute;
+    width: 48%;
+    height: 107%;
+    background-color: $white;
+    left: 1%;
+    top: -3%;
+    z-index: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+    
+        
+  }
+  .trans_login_enter{
+    .animated{
+        animation-duration: 0.3s;
+        animation-name: slidein;
+    
+    }
+  
+}
+  .trans_forget{
+      .animated{
+        animation-duration: 0.3s;
+        animation-name: slidemiddleout;
+      }
+    
+  }
+  .trans_renew{
+    .animated{
+      animation-duration: 0.5s;
+      animation-name: rotateout;
+    }
+  
+}

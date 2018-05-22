@@ -1,0 +1,105 @@
+/* scss for components */
+
+@import './login/login.global.scss';
+@import './login/animations.scss';
+@import './login/register.animations.scss';
+
+@import './login/login.global.scss';
+@import './login/login.scss';
+@import './login/register.scss';
+@import './login/forget.scss';
+@import './login/renew.scss';
+
+@import './login/register.account.scss';
+/* custom styles */
+@import './utils/submit.btn.scss';
+@import './template.scss';
+@import './animated.css';
+
+
+html,
+body,
+#root {
+    height: 100%;
+    width: 100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.App {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+}
+.TopBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    width: 100%;
+    height: 62px;
+    padding: 0 24px;
+}
+.TopBar a {
+    margin-right: 18px;
+    text-decoration: none;
+}
+.animated-page-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.page {
+    padding: 0 24px;
+}
+.centered-progress{
+    margin: auto;
+    margin-bottom: 0;
+    svg {
+        circle{
+            stroke: $green!important;
+        }
+    }
+}
+.switch{
+    overflow: hidden;
+}
+
+
+.alert {
+    position: absolute;
+    /* bottom: 0; */
+    padding: 7px;
+    background-color: #f44336;
+    color: white;
+    width: calc( 100% - 4px);
+    margin: 2px;
+    animation-duration: 0.3s;
+
+    .material-icons {
+        color: white;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}

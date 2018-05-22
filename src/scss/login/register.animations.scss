@@ -1,0 +1,35 @@
+@keyframes magicin {
+    from {
+        opacity: 1;
+      left: 51%;
+    }
+    50% {
+        opacity: 0;
+        left: 1%;
+    }
+    51%{
+        opacity: 1;
+        left: 101%;
+    }
+    to {
+        left: 51%;
+    }
+  }
+  @keyframes magicout {
+    from {
+        opacity: 1;
+        left: 51%;
+      }
+      50% {
+          opacity: 0;
+          left: 101%;
+      }
+      51%{
+          opacity: 0;
+          left: 1%;
+      }
+      to {
+          opacity: 1;
+          left: 51%;
+      }
+  }

@@ -1,0 +1,44 @@
+$green: #1ECD97;
+$gray: #bbbbbb;
+
+
+#form > .forms > form .onclic {
+    background-color: transparent!important;
+    color: transparent!important;
+    font-size: 0!important;
+    min-width: 40px!important;
+  width: 40px!important;
+  height: 40px!important;
+  padding: 0!important;
+  border-radius: 50%!important;
+  font-size:0!important;
+  border: 3px solid $gray !important;
+  border-left-color:$green!important;
+  animation: rotating 2s 0.25s linear infinite;
+  cursor: default!important;
+
+  
+  &:hover {
+    color:$green;
+    background: white;
+    box-shadow: none!important;
+  }
+}
+.validate {
+  font-size:13px;
+  color: white;
+  background: $green;
+  &:after {
+    font-family:'FontAwesome';
+    content:"\f00c";
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
