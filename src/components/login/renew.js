@@ -14,7 +14,7 @@ const ERROR_EQ = 3;
 
 
 import AnimatedWrapper from '../../animated.wrapper';
-import { AUTH_NOT_FOUND_ACTION, renew_password } from '../../actions/login';
+import { AUTH_ACTION, AUTH_NOT_FOUND_ACTION, renew_password } from '../../actions/login';
 /**
  * Main container for login page:
  * can login
@@ -291,7 +291,17 @@ class ReNewPasswrdComponent extends React.Component {
               }
               
             </form>
-            <Link to={{pathname: '/login', state: { prevPath: 'renew' }}}>Back to login</Link>
+            <a href="#" onClick={(evt)=>{
+                evt.preventDefault();
+                if(!this.props.loginState.sending){
+                    this.props.dispatch({
+                        type: AUTH_ACTION
+                    });
+                    return  this.props.history.push({pathname: '/login', state: { prevPath: 'renew' }});
+                }
+                return false;
+            }} >Back To Login</a>
+            
           </div>
           <div className="right-col resume">
             <h2>CFR-21 Normas</h2>
