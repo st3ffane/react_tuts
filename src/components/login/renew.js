@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link, Route, Switch } from 'react-router-dom';
 
+import CircularProgress from 'material-ui/CircularProgress';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -13,6 +14,7 @@ const ERROR_EQ = 3;
 
 
 import AnimatedWrapper from '../../animated.wrapper';
+import { AUTH_NOT_FOUND_ACTION, renew_password } from '../../actions/login';
 /**
  * Main container for login page:
  * can login
@@ -38,7 +40,15 @@ class ReNewPasswrdComponent extends React.Component {
     shouldComponentUpdate(np, ns){
         return true;
     }
-
+    componentWillReceiveProps(np, ns){
+        if(np.loginState.reason==AUTH_NOT_FOUND_ACTION) {
+            // add error message
+             this.setState(Object.assign({}, this.state, {
+                 login_error:{code: 1, message:"Unknown user!"},
+                 password_error: {code: 1, message:"Unknown user!"}
+             }));
+        }
+     }
     _setValue(field, evt){
         // todo
         let t = {};
@@ -219,7 +229,7 @@ class ReNewPasswrdComponent extends React.Component {
         let result = this.validateLogin(this.state.login)  & this.validatePassword(this.state.passwrd)
             & this.validateNewPassword(this.state.new_password) & this.validateConfirmPassword(this.state.confirm_password)
         if(result)
-            this.props.history.push('/renew')
+            this.props.dispatch(renew_password(this.state, this.props.history));// this.props.history.push('/renew')
         return false;
     }
 
@@ -230,12 +240,21 @@ class ReNewPasswrdComponent extends React.Component {
         
         return (
         <div id="form">
-          <div className="switch rn_switch"></div>
+          <div className="switch rn_switch">
+          {this.props.loginState.error && this.props.loginState.reason != AUTH_NOT_FOUND_ACTION ?
+                <div className="alert animation fadeInDown">
+                <i className="material-icons">
+                error
+                </i>{this.props.loginState.message || 'Error'}
+                </div> :
+                null}
+            </div>
           <div className="left-col forms">
             <form className="login renew" onSubmit={(evt)=>this.submit(evt)}>
                 <h2>Update Password</h2>
                 
             <TextField
+                    autoFocus
                     value={this.state.login} onChange ={(evt)=>this.validateLogin(evt.target.value)}
                     floatingLabelText="Login"
                     fullWidth={true}
@@ -264,8 +283,12 @@ class ReNewPasswrdComponent extends React.Component {
                     />
               
               
-              <RaisedButton type="submit" id="lsubmit" label="Confirm"
-                className="primary" />
+              {this.props.loginState.sending ?
+                    <CircularProgress className="centered-progress" size={80} thickness={5} />
+                    : <RaisedButton type="submit" id="lsubmit" label="Confirm"
+                        className="primary" />
+                    
+              }
               
             </form>
             <Link to={{pathname: '/login', state: { prevPath: 'renew' }}}>Back to login</Link>

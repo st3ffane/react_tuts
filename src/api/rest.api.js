@@ -7,7 +7,8 @@ import {
     AUTH_ERROR_ACTION,
     AUTH_FIRST_CONNECT_ACTION,
     AUTH_TOO_OLD_ACTION,
-    AUTH_NOT_FOUND_ACTION
+    AUTH_NOT_FOUND_ACTION,
+    
 
 } from '../actions/login';
 import * as REGISTER from '../actions/register';
@@ -104,6 +105,26 @@ export function createUserSite(name){
     return new Promise( (resolve, reject)=>{
         setTimeout( ()=>{
             if(name == 'helloworld'){
+                reject({
+                    status: STATUS.EPIC_FAIL
+                })
+            } else {
+                resolve({status: STATUS.OK})
+            }
+        }, 2000);
+    });
+}
+
+export function renew_password(user){
+    
+    return new Promise( (resolve, reject)=>{
+        console.log(user)
+        setTimeout( ()=>{
+            if(user.login == 'stephane'){
+                resolve({
+                    status: STATUS.NOT_FOUND
+                })
+            } else if(user.login == 'kimokimo'){
                 reject({
                     status: STATUS.EPIC_FAIL
                 })

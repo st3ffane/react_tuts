@@ -73,3 +73,44 @@ export function authenticate (login, passwrd, history){
         });
       }
 }
+
+export function renew_password(user, history) {
+    return (dispatch, getState, api) => {
+        // lance le travail...
+        dispatch({
+            type:AUTH_ACTION_START
+        });
+        api.renew_password(user)
+        .then( (res)=>{
+            switch(res.status){
+                case STATUS.NOT_FOUND:{
+                    dispatch({
+                        type: AUTH_NOT_FOUND_ACTION,
+                        message: res.message || 'OK',
+                        datas: res.data || {}
+                    });
+                    break;
+                }
+                default:{
+                    dispatch({
+                        type: AUTH_SUCCESS_ACTION,
+                        message: res.message || 'OK',
+                        datas: res.data || {}
+                    });
+                    history.push('/homepage'); 
+                    break;
+                }
+                
+            }
+            
+        })
+        .catch( (err)=>{
+            dispatch({
+                type: AUTH_ERROR_ACTION,
+                message: err.message || 'EPIC_FAIL'
+            });
+        });
+    }
+  
+    
+}

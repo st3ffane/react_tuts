@@ -16,5 +16,7 @@ export default  {
     REGISTER_LOGIN_ALREADY_IN_USE: 420,
     REGISTER_PASSWRD_ALREADY_IN_USE: 421,
     
+    // renew password
+    
 
 }

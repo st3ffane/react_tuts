@@ -189,7 +189,8 @@ class RegisterComponent extends React.Component {
 
 function mapStateToProps(state){
     return {
-        registerState: state.registerState
+        registerState: state.registerState,
+        generalState: state.generalState
     }
 }
 export default connect(mapStateToProps)(AnimatedWrapper(RegisterComponent,{

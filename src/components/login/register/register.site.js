@@ -31,6 +31,8 @@ class RegisterComponent extends React.Component {
     }
 
     componentDidMount(){
+        // must load devices infos
+
         let tmp = {
             siteName: this.props.registerState.siteName  || '',
         }

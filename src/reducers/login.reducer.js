@@ -45,15 +45,18 @@ module.exports = (state, action) => {
             });
         }
         case AUTH_SUCCESS_ACTION: {
+            // clean datas, keep only token
             return Object.assign({}, state, {
-                sending: false,
+                token: "a token"
+            });
+            /*    sending: false,
                 isAuth: true,
                 status: 0,
                 message: '',
                 token: action.datas,
                 error: false,
                 reason: action.type,
-            });
+            });*/
         }
         case AUTH_FIRST_CONNECT_ACTION:
         case AUTH_TOO_OLD_ACTION:
