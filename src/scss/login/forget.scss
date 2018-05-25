@@ -1,5 +1,10 @@
 @import '../template.scss';
 
+
+.sized{
+  width:250px;
+  height:250px;
+}
 .f_forms{
     margin-left: 25%;
 }
@@ -20,6 +25,30 @@
         animation-name: slidemiddle;
     }
 }
+
+@media (max-width: 1024px) {
+  .sized{
+    width:100px;
+  height:100px;
+  }
+  .f_forms{
+    margin-left: 0;
+    top: 25%;
+  }
+  .f_switch{
+    top: 25%;
+    width: 107%;
+    height: 48%;
+    
+    left: -3%;
+    
+    
+  }
+}
+
+
+
+
 
 .textcenter{
     text-align: center;

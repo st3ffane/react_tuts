@@ -128,8 +128,8 @@ class ForgetComponent extends React.Component {
                 <h2 className="title">Check Your Mail!</h2>
                 <p>A temporary password had been sent tou your email adress. You will be asked to change it as soon as you log in.</p>
                 <div className="textcenter"> 
-                    <svg id="successAnimation" className="animated" 
-                    xmlns="http://www.w3.org/2000/svg" width="250px" height="250px" viewBox="0 0 75 75">
+                    <svg id="successAnimation" className="animated sized" 
+                    xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 75 75">
                         <circle id="successAnimationCircle" cx="35" cy="35" r="24" stroke="#979797" strokeWidth="2" strokeLinecap="round" 
                     fill="transparent"/>
                     <polyline id="successAnimationCheck" stroke="#979797" strokeWidth="2" points="23 34 34 43 47 27" fill="transparent"/>
