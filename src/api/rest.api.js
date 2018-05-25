@@ -134,3 +134,22 @@ export function renew_password(user){
         }, 2000);
     });
 }
+
+export function generateNewMail(user){
+    return new Promise( (resolve, reject)=>{
+        console.log(user)
+        setTimeout( ()=>{
+            if(user.login == 'stephane'){
+                resolve({
+                    status: STATUS.OK
+                })
+            } else if(user.login == 'kimokimo'){
+                reject({
+                    status: STATUS.EPIC_FAIL
+                })
+            } else {
+                resolve({status: STATUS.NOT_FOUND})
+            }
+        }, 2000);
+    });
+}

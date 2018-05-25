@@ -5,7 +5,7 @@ export default  combineReducers({
     loginState: require('./login.reducer'),
     registerState: require('./register'),
     generalState: require('./general.infos'),
-    
+    forgetState: require('./forget')
     
 });
 

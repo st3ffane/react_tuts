@@ -230,6 +230,7 @@ class ReNewPasswrdComponent extends React.Component {
             & this.validateNewPassword(this.state.new_password) & this.validateConfirmPassword(this.state.confirm_password)
         if(result)
             this.props.dispatch(renew_password(this.state, this.props.history));// this.props.history.push('/renew')
+        
         return false;
     }
 
@@ -240,7 +241,7 @@ class ReNewPasswrdComponent extends React.Component {
         
         return (
         <div id="form">
-          <div className="switch rn_switch">
+          <div className={"switch rn_switch animated" + (this.props.loginState.error  ? ' animation shake' : '')}>
           {this.props.loginState.error && this.props.loginState.reason != AUTH_NOT_FOUND_ACTION ?
                 <div className="alert animation fadeInDown">
                 <i className="material-icons">
@@ -320,7 +321,11 @@ class ReNewPasswrdComponent extends React.Component {
 
 function select(state){
     return {
-        loginState: state.loginState
+        loginState: state.loginState,
+    
     }
 }
-export default connect(select)(ReNewPasswrdComponent);
+export default connect(select)(AnimatedWrapper(ReNewPasswrdComponent,{
+    'default': "page", // toujours appliquer ces classes
+    'enter': ' trans_renew_enter' // affichage du composant
+}));
