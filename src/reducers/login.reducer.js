@@ -46,9 +46,9 @@ module.exports = (state, action) => {
         }
         case AUTH_SUCCESS_ACTION: {
             // clean datas, keep only token
-            return Object.assign({}, state, {
+            return {
                 token: "a token"
-            });
+            };
             /*    sending: false,
                 isAuth: true,
                 status: 0,

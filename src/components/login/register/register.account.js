@@ -25,17 +25,20 @@ class RegisterComponent extends React.Component {
             login:'',
             passwrd:'',
             repasswrd:'',
+            license: '',
 
             login_error: {},
             passwrd_error: {},
-            repasswrd_error: {}
+            repasswrd_error: {},
+            license_error:{}
         }
     }
     componentDidMount(){
         let tmp = {
             login: this.props.registerState.login  || '',
             passwrd: this.props.registerState.passwrd  || '', 
-            repasswrd: this.props.registerState.repasswrd || ''
+            repasswrd: this.props.registerState.repasswrd || '',
+            license: this.props.registerState.license || ''
         }
         this.setState(Object.assign({}, this.state, tmp))
     }
@@ -55,7 +58,15 @@ class RegisterComponent extends React.Component {
                     code: 3,
                     message: 'Password already in use, please change.'
                 }
-            } ))        
+            } ));
+        else if (np.registerState.unknown_license) {
+            this.setState(Object.assign({}, this.state, {
+                license_error : {
+                    code: 3,
+                    message: 'Unknown license key.'
+                }
+            } ))
+        }       
 
     }
     shouldComponentUpdate(np, ns){
@@ -178,7 +189,32 @@ class RegisterComponent extends React.Component {
         });
         return retval;
     }
-
+    validateLicense(license){
+        let tmp = {
+            'license': license.trim(),
+            'license_error': {}
+        };
+        let retval = true;
+        try{
+            expect(tmp.license).to.not.be.empty();
+            expect(tmp.license).to.match(/^[0-9a-zA-z]{9}$/);
+        }
+        catch(err){
+            tmp.license_error = {
+                    code: err,
+                    message:'License must be 9 alphanumerics characters.'
+            };
+            
+            retval = false;
+        } 
+        
+        //this.setState(Object.assign({}, this.state,tmp))
+        // will set state later...
+        this.setState((old, np)=> {
+            return {...old, ...tmp};
+        });
+        return retval;
+    }
 
     submit(evt){
         
@@ -186,7 +222,8 @@ class RegisterComponent extends React.Component {
         evt.stopPropagation();
         let res = this.validateLogin(this.state.login)
             & this.validateNewPassword(this.state.passwrd)
-            & this.validateConfirmPassword(this.state.repasswrd);
+            & this.validateConfirmPassword(this.state.repasswrd)
+            & this.validateLicense(this.state.license);
 
         if(res)
             this.props.dispatch(REGISTER.checkUserAccount(this.state, this.props.history));// this.props.history.push('/register/site')
@@ -198,8 +235,8 @@ class RegisterComponent extends React.Component {
         
         return (
         <div id="form">
-            <div className={"animated ra_switch" + (this.props.registerState.error || this.props.registerState.known  ? ' animation shake' : '')} id="switch">
-            {this.props.registerState.error && !this.props.registerState.known ?
+            <div className={"animated ra_switch " + (this.props.registerState.has_error ? ' animation shake' : '')} id="switch">
+            {this.props.registerState.error ?
                 <div className="alert animation fadeInDown">
                 <i className="material-icons">
                 error
@@ -218,11 +255,11 @@ class RegisterComponent extends React.Component {
                   })} />
             
           </div>
-          <div className="right-col forms rform">
+          <div className="right-col forms rform bigger">
             
             <form  onSubmit={(evt)=>this.submit(evt)}>
             <h2>your account</h2>
-            <p>lore ipsum dolore sit amet, lore ipsum dolore sit amet lore ipsum dolore sit amet, lore ipsum dolore sit amet</p>
+            <p>lore ipsum dolore sit amet, lore ipsum dolore sit amet</p>
             <TextField
                     autoFocus
                     value={this.state.login} onChange ={(evt)=>this.validateLogin(evt.target.value)}
@@ -244,10 +281,17 @@ class RegisterComponent extends React.Component {
                     type="password"
                     errorText={this.state.repasswrd_error.message}
                     />
+            <TextField
+                    value={this.state.license} onChange ={(evt)=>this.validateLicense(evt.target.value)}
+                    floatingLabelText="License"
+                    fullWidth={true}
+                    type="text"
+                    errorText={this.state.license_error.message}
+                    />
               
               
               {this.props.registerState.sending ?
-                    <CircularProgress className="centered-progress" size={80} thickness={5} />
+                    <CircularProgress className="centered-progress" size={60} thickness={5} />
                     : <RaisedButton type="submit" id="lsubmit" label="Next"
                         className="primary" />
                     

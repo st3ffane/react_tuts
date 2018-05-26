@@ -9,6 +9,8 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
+
 import InputMask from 'react-input-mask';
 
 import AnimatedWrapper from '../../../animated.wrapper';
@@ -147,40 +149,50 @@ class RegisterComponent extends React.Component {
           </div>
           <div className="right-col forms rform">
             
-            <form onSubmit={(evt)=>this.submit(evt)}>
-            <h2>Add your device</h2>
-            <p>lore ipsum dolore sit amet, lore ipsum dolore sit amet lore ipsum dolore sit amet, lore ipsum dolore sit amet</p>
-            
-            <SelectField
-            floatingLabelText="Device Type"
-            value={this.state.type} onChange ={(evt, index, value)=>this.validateType(value)}
-            fullWidth={true}
-            errorText={this.state.type_error.message}
-            >
-                <MenuItem value={1} primaryText="type 1" />
-                <MenuItem value={2} primaryText="type 2" />
-                <MenuItem value={3} primaryText="type 3" />
-                <MenuItem value={4} primaryText="type 4" />
-                <MenuItem value={5} primaryText="type 5" />
-            </SelectField>
-              
-                <TextField
-                    value={this.state.code}
-                    floatingLabelText="Device Code"
+            {
+                this.props.generalState.is_loading ?
+
+                    <div>loading....</div> :
+
+                    <form onSubmit={(evt)=>this.submit(evt)}>
+                    <h2>Add your device</h2>
+                    <p>lore ipsum dolore sit amet, lore ipsum dolore sit amet lore ipsum dolore sit amet, lore ipsum dolore sit amet</p>
+                    
+                    <SelectField
+                    floatingLabelText="Device Type"
+                    value={this.state.type} onChange ={(evt, index, value)=>this.validateType(value)}
                     fullWidth={true}
-                    errorText={this.state.code_error.message}
-                    ><InputMask mask="HHHHHHHH" formatChars={HEXA_FORMAT} maskChar=" " value={this.state.code} onChange ={(evt)=>this.validateCode(evt.target.value)}/>
-                </TextField>
-                <TextField
-                    value={this.state.serial} 
-                    floatingLabelText="Device Serial"
-                    fullWidth={true}
-                    errorText={this.state.serial_error.message}
-                ><InputMask mask="3K 99.99.99999" maskChar="_" value={this.state.serial} onChange ={(evt)=>this.validateSerial(evt.target.value)}/></TextField>
-              
-              <RaisedButton type="submit" id="lsubmit" label="OK"
-                className="primary" />
-            </form>
+                    errorText={this.state.type_error.message}
+                    >
+                        <MenuItem value={1} primaryText="type 1" />
+                        <MenuItem value={2} primaryText="type 2" />
+                        <MenuItem value={3} primaryText="type 3" />
+                        <MenuItem value={4} primaryText="type 4" />
+                        <MenuItem value={5} primaryText="type 5" />
+                    </SelectField>
+                    
+                        <TextField
+                            value={this.state.code}
+                            floatingLabelText="Device Code"
+                            fullWidth={true}
+                            errorText={this.state.code_error.message}
+                            ><InputMask mask="HHHHHHHH" formatChars={HEXA_FORMAT} maskChar=" " value={this.state.code} onChange ={(evt)=>this.validateCode(evt.target.value)}/>
+                        </TextField>
+                        <TextField
+                            value={this.state.serial} 
+                            floatingLabelText="Device Serial"
+                            fullWidth={true}
+                            errorText={this.state.serial_error.message}
+                        ><InputMask mask="3K 99.99.99999" maskChar="_" value={this.state.serial} onChange ={(evt)=>this.validateSerial(evt.target.value)}/></TextField>
+                    
+                    {this.props.loginState.sending ?
+                            <CircularProgress className="centered-progress" size={60} thickness={5} />
+                            : <RaisedButton type="submit" id="lsubmit" label="Validate"
+                                className="primary" />
+                            
+                    }
+                    </form>
+            }
           </div>
         </div>);
         

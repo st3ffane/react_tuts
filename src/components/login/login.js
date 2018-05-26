@@ -4,7 +4,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
-import Snackbar from 'material-ui/Snackbar';
+// import Snackbar from 'material-ui/Snackbar';
 
 
 const expect = require('expect.js');
@@ -140,7 +140,7 @@ class LoginComponent extends React.Component {
                     />
               
               {this.props.loginState.sending ?
-                    <CircularProgress className="centered-progress" size={80} thickness={5} />
+                    <CircularProgress className="centered-progress" size={60} thickness={5} />
                     : <RaisedButton type="submit" id="lsubmit" label="Sign In"
                         onClick={()=>this._setValue('current',{target:{value:'onclic'}})}
                         className="primary" />

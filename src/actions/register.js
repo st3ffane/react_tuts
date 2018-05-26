@@ -11,6 +11,8 @@ export const REGISTER_CHECK_MAIL_KNOWN = 'check_mail_known_register';
 export const REGISTER_CHECK_ACCOUNT_OK = 'success_reg_account';
 export const REGISTER_ACCOUNT_LOGIN_ALREADY_IN_USE = 'used_login_reg_account';
 export const REGISTER_ACCOUNT_PASSWRD_ALREADY_IN_USE = 'used_passwrd_reg_account';
+export const REGISTER_ACCOUNT_INVALID_LICENSE_KEY = 'invalid_license_reg_account';
+
 
 export const REGISTER_CREATE_SITE_OK = 'success_rg_site';
 // check if mail not known!
@@ -70,6 +72,11 @@ export function checkUserAccount(user, history){
                     user: user
                 });
                 history.push('/register/site');
+            }
+            else if(res.status == STATUS_CODES.REGISTER_INVALID_LICENSE) {
+                dispatch({
+                    type:REGISTER_ACCOUNT_INVALID_LICENSE_KEY
+                });
             }
             else {
                 let type = res.status == STATUS_CODES.REGISTER_LOGIN_ALREADY_IN_USE ?

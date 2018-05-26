@@ -36,11 +36,14 @@ body {
     padding: 0;
     font-family: sans-serif;
 }
-#exemple{
+#example{
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
+    @media (max-width: 1024px){
+        background: $back;
+    }
 }
 .App {
     width: 100%;
@@ -50,6 +53,7 @@ body {
     position: relative;
     display: flex;
     flex-flow: column;
+    font-size: 0.95rem;
 }
 .TopBar {
     position: fixed;
@@ -124,9 +128,13 @@ body {
 h2{
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
+    
     font-weight: 600;
     color: $white;
     text-transform: capitalize;
+    @media (max-width: 1024px){
+        margin-top: 2.7rem;
+    }
 }
 p{
     line-height: 1.5rem;

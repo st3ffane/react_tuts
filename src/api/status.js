@@ -15,6 +15,7 @@ export default  {
     REGISTER_KNOWN_MAIL: 420,
     REGISTER_LOGIN_ALREADY_IN_USE: 420,
     REGISTER_PASSWRD_ALREADY_IN_USE: 421,
+    REGISTER_INVALID_LICENSE: 422,
     
     // renew password
     

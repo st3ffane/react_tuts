@@ -250,7 +250,7 @@ class ReNewPasswrdComponent extends React.Component {
                 </div> :
                 null}
             </div>
-          <div className="left-col forms">
+          <div className="left-col forms renewform">
             <form className="login renew" onSubmit={(evt)=>this.submit(evt)}>
                 <h2>Update Password</h2>
                 
@@ -285,7 +285,7 @@ class ReNewPasswrdComponent extends React.Component {
               
               
               {this.props.loginState.sending ?
-                    <CircularProgress className="centered-progress" size={80} thickness={5} />
+                    <CircularProgress className="centered-progress" size={60} thickness={5} />
                     : <RaisedButton type="submit" id="lsubmit" label="Confirm"
                         className="primary" />
                     
@@ -304,7 +304,7 @@ class ReNewPasswrdComponent extends React.Component {
             }} >Back To Login</a>
             
           </div>
-          <div className="right-col resume">
+          <div className="right-col resume renewright">
             <h2>CFR-21 Normas</h2>
             
             <p>Lore ipsum dolore sit amet, lore ipsum dolore sit amet, lore ipsum dolore sit amet 

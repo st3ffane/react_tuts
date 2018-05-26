@@ -34,19 +34,25 @@
   height: 470px;
   z-index: 1;
   
+  @media (max-width: 1024px){
+    background: transparent;
+    border: 1px solid $white;
+  }
   
   .left-col, .right-col{
     width: 50%;
     float: left;
     height: 100%;  
     padding: 0.5rem 1.875rem 2.7rem 1.875rem;  
-    
+    &.bigger{
+      height: 110%;
+    }
   }
   .resume{
     @extend .container;
     color: $black;
     background-size: cover;
-    font-size: 1rem;
+    
     
     p{
       line-height: 1.5rem;
@@ -107,7 +113,7 @@
   }
   .forms{
     position:relative;
-    font-size: 1rem;
+    
     z-index:1;
     
     

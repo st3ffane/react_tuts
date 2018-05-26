@@ -113,7 +113,7 @@ class RegisterComponent extends React.Component {
                     />
               
               {this.props.registerState.sending ?
-                    <CircularProgress className="centered-progress" size={80} thickness={5} />
+                    <CircularProgress className="centered-progress" size={60} thickness={5} />
                     : <RaisedButton type="submit" id="lsubmit" label="Next"
                         className="primary" />
                     

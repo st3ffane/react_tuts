@@ -95,6 +95,11 @@ export function checkUserAccountInfos(user){
                     status: STATUS.EPIC_FAIL
 
                 })
+            } else if(user.login == 'kimostephane'){
+                resolve({
+                    status: STATUS.REGISTER_INVALID_LICENSE
+
+                })
             } else {
                 resolve({status: STATUS.OK})
             }

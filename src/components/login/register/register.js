@@ -164,7 +164,7 @@ class RegisterComponent extends React.Component {
             <RaisedButton type="button"  label="Sign In"
                 className="secondary" onClick={()=>!this.props.registerState.sending && this.props.history.push('/login')} />
           </div>
-          <div className="right-col forms rform">
+          <div className="right-col forms rform bigger">
             
             <form  onSubmit={(evt)=>this.submit(evt)}>
             <h2>Sign Up</h2>
@@ -191,7 +191,7 @@ class RegisterComponent extends React.Component {
                     />
               
               {this.props.registerState.sending ?
-                    <CircularProgress className="centered-progress" size={80} thickness={5} />
+                    <CircularProgress className="centered-progress" size={60} thickness={5} />
                     : <RaisedButton type="submit" id="lsubmit" label="Sign Up"
                         className="primary" />
                     
