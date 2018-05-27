@@ -47,7 +47,11 @@ module.exports = (state, action) => {
         case AUTH_SUCCESS_ACTION: {
             // clean datas, keep only token
             return {
-                token: "a token"
+                token: "a token",
+                // and other datas like
+                firstname: "Stephane",
+                lastname:"Ponteins",
+                // ...
             };
             /*    sending: false,
                 isAuth: true,

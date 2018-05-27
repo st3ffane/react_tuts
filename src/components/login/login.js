@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 // import Snackbar from 'material-ui/Snackbar';
 
+import {injectIntl, FormattedMessage} from 'react-intl';
 
 const expect = require('expect.js');
 
@@ -33,10 +34,11 @@ class LoginComponent extends React.Component {
    
     componentWillReceiveProps(np, ns){
        if(np.loginState.reason==AUTH_NOT_FOUND_ACTION) {
+           let intl = this.props.intl;
            // add error message
             this.setState(Object.assign({}, this.state, {
-                login_error:"Unknown user!",
-                password_error: 'Unknown user!'
+                login_error:intl.formatMessage({id:'login.error.unknown'}),
+                password_error: intl.formatMessage({id:'login.error.unknown'})
             }));
        }
     }
@@ -61,7 +63,7 @@ class LoginComponent extends React.Component {
             expect(log.length).to.be.above(7);      
             
         } catch( err){
-            tmp.login_error = 'Login must be at least 8 characters long.'; 
+            tmp.login_error = intl.formatMessage({id:'login.error.invalid_login'}); 
             retval = false;
         }
         // will set state later...
@@ -82,7 +84,7 @@ class LoginComponent extends React.Component {
             expect(pass).to.not.be.empty();
             expect(pass.length).to.be.above(7);
         } catch( err){
-            tmp.password_error = 'Password must be at least 8 characters long.';  
+            tmp.password_error = intl.formatMessage({id:'login.error.invalid_password'});  
             retval = false;
         }
         // will set state later...
@@ -103,11 +105,8 @@ class LoginComponent extends React.Component {
         return false;
     }
     render(){
-        let snackErrorStyle = {
-            left: 0,
-            transform: 'translate(25%, 0px)'
-        }
-        
+        const intl = this.props.intl;
+
         return (
         <div id="form">
           <div className={"switch l_switch animated" + (this.props.loginState.error  ? ' animation shake' : '')}>
@@ -115,25 +114,26 @@ class LoginComponent extends React.Component {
                 <div className="alert animation fadeInDown">
                 <i className="material-icons">
                 error
-                </i>{this.props.loginState.message || 'Error'}
+                </i>
+                <FormattedMessage id="login.error.server" defaultMessage="Server Error"/>
                 </div> :
                 null}
                 </div>
           <div className="left-col forms">
             <form className="login" onSubmit={(evt)=>this.submit(evt)}>
-                <h2>Sign In</h2>
+                <h2><FormattedMessage id="login.title" defaultMessage="Sign In"/></h2>
                 
-                <p>Login to access to your devices on Kimo Cloud. Lore ipsum dolore sit amet</p>
+                <p><FormattedMessage id="login.desc"/></p>
                 <TextField
                     autoFocus
                     value={this.state.login} onChange ={(evt)=>{this.validateLogin(evt.target.value)}}
-                    floatingLabelText="Login"
+                    floatingLabelText={intl.formatMessage({id:"login.login"})}
                     fullWidth={true}
                     errorText={this.state.login_error}
                     />
                 <TextField
                     value={this.state.passwrd} onChange ={(evt)=>{this.validatePassword(evt.target.value);}}
-                    floatingLabelText="Password"
+                    floatingLabelText={intl.formatMessage({id:"login.password"})}
                     fullWidth={true}
                     type="password"
                     errorText = {this.state.password_error}
@@ -141,7 +141,7 @@ class LoginComponent extends React.Component {
               
               {this.props.loginState.sending ?
                     <CircularProgress className="centered-progress" size={60} thickness={5} />
-                    : <RaisedButton type="submit" id="lsubmit" label="Sign In"
+                    : <RaisedButton type="submit" id="lsubmit" label={intl.formatMessage({id:"login.signin"})}
                         onClick={()=>this._setValue('current',{target:{value:'onclic'}})}
                         className="primary" />
                     
@@ -157,13 +157,13 @@ class LoginComponent extends React.Component {
                     return  this.props.history.push('/forgot');
                 }
                 return false;
-            }} >Forgot Password?</a>
+            }} ><FormattedMessage id="login.forgot"/></a>
           </div>
           <div className="right-col resume">
-            <h2>Don't have an account yet?</h2>
+            <h2><FormattedMessage id="login.resume.title"/></h2>
             
-            <p>Lore ipsum dolore sit amet, lore ipsum dolore sit amet, lore ipsum dolore sit amet</p>
-            <RaisedButton type="button"  label="Sign Up"
+            <p><FormattedMessage id="login.resume.desc"/></p>
+            <RaisedButton type="button"  label={intl.formatMessage({id:"login.signup"})}
                 className="secondary" onClick={(evt)=>{
                     evt.preventDefault();
                     if(!this.props.loginState.sending){
@@ -186,7 +186,9 @@ function select(state){
         loginState: state.loginState
     }
 }
-export default connect(select)(AnimatedWrapper(LoginComponent,{
+export default connect(select)(AnimatedWrapper(
+    injectIntl(LoginComponent),
+{
     'default': "page", // toujours appliquer ces classes
     'enter': ' trans_login_enter' // affichage du composant
 }));

@@ -2,8 +2,11 @@
 
 *{
   font-family: $font-stack;
-  color: $grey;
+  
   box-sizing: border-box;
+}
+a{
+  color: $grey;
 }
 
 .center{
