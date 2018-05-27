@@ -66,6 +66,7 @@ export function checkUserAccount(user, history){
             // OK or KNOWN
             
             if(res.status == STATUS_CODES.OK) {
+                //ok
                 dispatch({
                     type:REGISTER_CHECK_ACCOUNT_OK,
                     message:res.message || 'ERROR',

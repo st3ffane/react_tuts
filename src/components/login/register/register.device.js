@@ -16,6 +16,7 @@ import InputMask from 'react-input-mask';
 import AnimatedWrapper from '../../../animated.wrapper';
 
 const expect = require('expect.js');
+import * as GENERAL from '../../../actions/general';
 
 const HEXA_FORMAT = {
     'H': '[0-9a-fA-F]'
@@ -42,6 +43,13 @@ class RegisterComponent extends React.Component {
         }
     }
 
+    componentWillMount() {
+        // check if got devices types
+        if(!this.props.generalState.devicesTypes){
+            // load devices
+            this.props.dispatch(GENERAL.loadDevicesTypes());
+        }
+    }
     shouldComponentUpdate(np, ns){
         return true;
     }
@@ -64,7 +72,7 @@ class RegisterComponent extends React.Component {
         };
         let res = true;
         try{
-            expect(type).to.be.within(1,5);
+            expect(type).to.not.be.empty();
         } catch(err){
             tmp.type_error = {
                 code: 1,
@@ -134,9 +142,19 @@ class RegisterComponent extends React.Component {
     }
     render(){
         
+        // devices types
+        
         return (
         <div id="form">
-            <div className="animated ra_switch" id="switch"></div>
+            <div className={"switch ra_switch animated" + (this.props.registerState.error || this.props.generalState.has_error  ? ' animation shake' : '')} id="switch">
+            {this.props.registerState.error  || this.props.generalState.error  ?
+                <div className="alert animation fadeInDown">
+                <i className="material-icons">
+                error
+                </i>{this.props.registerState.message || this.props.generalState.error || 'Error'}
+                </div> :
+                null}
+            </div>
           <div className="left-col resume">
             <h2>3. Last piece of datas</h2>
             
@@ -152,7 +170,12 @@ class RegisterComponent extends React.Component {
             {
                 this.props.generalState.is_loading ?
 
-                    <div>loading....</div> :
+                <div className="spinner">
+                    <div className="bounce1"></div>
+                    <div className="bounce2"></div>
+                    <div className="bounce3"></div>
+                </div> 
+                :
 
                     <form onSubmit={(evt)=>this.submit(evt)}>
                     <h2>Add your device</h2>
@@ -164,11 +187,10 @@ class RegisterComponent extends React.Component {
                     fullWidth={true}
                     errorText={this.state.type_error.message}
                     >
-                        <MenuItem value={1} primaryText="type 1" />
-                        <MenuItem value={2} primaryText="type 2" />
-                        <MenuItem value={3} primaryText="type 3" />
-                        <MenuItem value={4} primaryText="type 4" />
-                        <MenuItem value={5} primaryText="type 5" />
+                        {
+                            (this.props.generalState.devicesTypes || []).map( (el)=><MenuItem key={el.code} value={el.code} primaryText={el.name}/>)
+                        }
+                        
                     </SelectField>
                     
                         <TextField
@@ -185,7 +207,7 @@ class RegisterComponent extends React.Component {
                             errorText={this.state.serial_error.message}
                         ><InputMask mask="3K 99.99.99999" maskChar="_" value={this.state.serial} onChange ={(evt)=>this.validateSerial(evt.target.value)}/></TextField>
                     
-                    {this.props.loginState.sending ?
+                    {this.props.registerState.sending ?
                             <CircularProgress className="centered-progress" size={60} thickness={5} />
                             : <RaisedButton type="submit" id="lsubmit" label="Validate"
                                 className="primary" />

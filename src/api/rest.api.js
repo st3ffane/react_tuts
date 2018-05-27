@@ -158,3 +158,46 @@ export function generateNewMail(user){
         }, 2000);
     });
 }
+
+export function getDevicesTypes(){
+    return new Promise( (resolve, reject)=>{
+        // return code and name
+        setTimeout( ()=>{
+            resolve([
+                {
+                    code:'DEVICE_A',
+                    name: 'device a',
+                    description:'A device A description'
+                },
+                {
+                    code:'DEVICE_B',
+                    name: 'device b',
+                    description:'A device B description'
+                },
+                {
+                    code:'DEVICE_C',
+                    name: 'device c',
+                    description:'A device C description'
+                }
+            ])
+        }, 2000);
+    });
+}
+export function createAccount(user){
+    return new Promise( (resolve, reject)=>{
+        console.log(user)
+        setTimeout( ()=>{
+            if(user.login == 'stephane'){
+                resolve({
+                    status: STATUS.OK
+                })
+            } else if(user.login == 'kimokimo'){
+                reject({
+                    status: STATUS.EPIC_FAIL
+                })
+            } else {
+                resolve({status: STATUS.NOT_FOUND})
+            }
+        }, 2000);
+    });
+}

@@ -112,7 +112,8 @@ class ForgetComponent extends React.Component {
         return (
         
         <div id="form">
-          <div className={"switch f_switch animated" + (this.props.forgetState.error  ? ' animation shake' : '')}>
+          <div className={"switch f_switch animated" + (this.props.forgetState.error  ? ' animation shake' : 
+                this.props.forgetState.done ? 'animation pulse' :'')}>
           {this.props.forgetState.error && this.props.forgetState.reason != FORGET_UNKNOWN_ACTION ?
                 <div className="alert animation fadeInDown">
                 <i className="material-icons">
