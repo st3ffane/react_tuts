@@ -53,6 +53,7 @@ class LoginComponent extends React.Component {
     }
     validateLogin(log = ''){
         log = log.trim();
+        let intl = this.props.intl;
         let tmp = {
             'login': log,
             'login_error': ''
@@ -75,6 +76,7 @@ class LoginComponent extends React.Component {
     }
     validatePassword(pass = ''){
         pass = pass.trim();
+        let intl = this.props.intl;
         let tmp = {
             'passwrd': pass.trim(),
             'password_error': ''
@@ -163,7 +165,7 @@ class LoginComponent extends React.Component {
             <h2><FormattedMessage id="login.resume.title"/></h2>
             
             <p><FormattedMessage id="login.resume.desc"/></p>
-            <RaisedButton type="button"  label={intl.formatMessage({id:"login.signup"})}
+            <RaisedButton type="button"  label={intl.formatMessage({id:"login.resume.signup"})}
                 className="secondary" onClick={(evt)=>{
                     evt.preventDefault();
                     if(!this.props.loginState.sending){
